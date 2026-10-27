@@ -1,0 +1,26 @@
+# Aimergentia
+
+> Aimergentia is an engineering studio focused on human + AI pair software development. We pair frontier AI models with disciplined systems engineering to build resilient, ultra-fast, and verified software.
+
+## Core Capabilities
+- **AI-Pair Sprints**: Concentrated engineering bursts to ship production features, refactor legacy codebases, and resolve hard architecture bottlenecks.
+- **AI-Native Architecture**: Designing deterministic guardrails, structured AST/LSP agent interfaces, and continuous verification loops around stochastic model outputs.
+- **Codebase Audits & Hardening**: Eliminating technical debt, standardizing strict CSP and type boundaries, and establishing zero-dependency deployment pipelines.
+
+## Architectural Philosophy
+- **Standard Library First**: Minimize external runtime dependencies. Prefer rock-solid standard-library tooling over bloated framework churn.
+- **Zero Runtime Client JavaScript**: Ultra-low latency, accessible static HTML/CSS with strict Content Security Policy (`script-src 'none'`).
+- **Deterministic Verification**: Every generated line of code is verified through rigorous automated test harnesses and mathematical invariants before deployment.
+
+## Key Pages
+- [Home](https://aimergentia.com/): Studio overview and engineering thesis.
+- [Services](https://aimergentia.com/services.html): Engagement models, sprint structures, and architectural advisory.
+- [Approach](https://aimergentia.com/approach.html): Engineering methodology, model pairing dynamics, and verification rigor.
+- [Stack](https://aimergentia.com/stack.html): Languages, agent harnesses, model routing, and verification toolchain.
+- [Contact](https://aimergentia.com/contact.html): Direct inquiries and booking.
+
+## Contact & Inquiries
+- Primary Email: hello@aimergentia.com
+- Privacy Inquiries: privacy@aimergentia.com
+- GitHub: https://github.com/aimergentia
+

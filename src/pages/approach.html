@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- @include head -->
+<title>Approach — Aimergentia</title>
+<meta name="description" content="Our engineering approach: deterministic guardrails, human architectural steering, rigorous property testing, and standard-library simplicity.">
+<meta property="og:title" content="Approach — Aimergentia">
+<meta property="og:description" content="How we build software: pairing stochastic models with deterministic systems engineering.">
+<link rel="canonical" href="https://aimergentia.com/approach.html">
+<meta property="og:url" content="https://aimergentia.com/approach.html">
+</head>
+<body>
+<!-- @include skip -->
+<div class="shell">
+<!-- @include rail -->
+<main id="content" class="sheet">
+
+  <p class="kicker">Methodology</p>
+  <h1>Our Approach to AI-Pair Engineering</h1>
+
+  <p class="lead">Software engineering is shifting from manual line writing to high-frequency specification, steering, and verification. Here is how we ensure rigor in an AI-accelerated workflow.</p>
+
+  <section class="section" id="steering">
+    <h2>1. Human Steering, Machine Synthesis</h2>
+    <p>AI models excel at pattern completion, rapid boilerplate synthesis, and exploring wide combinatorial problem spaces. Humans excel at understanding user domain context, non-functional requirements, failure domains, and long-term maintainability.</p>
+    <p>In our pair workflows, the human engineer maintains relentless focus on system invariants, data contracts, and boundaries, while the AI models generate and refine implementations within those boundaries.</p>
+  </section>
+
+  <section class="section" id="deterministic-guardrails">
+    <h2>2. Deterministic Guardrails</h2>
+    <p>Stochastic models can hallucinate syntax, invent non-existent APIs, or introduce subtle off-by-one errors. You cannot trust an LLM on its word; you can only trust what survives an unyielding verification harness.</p>
+    <ul>
+      <li><strong>Immediate Build Verification:</strong> Every code mutation is instantly executed against compilers, linters, and type checkers.</li>
+      <li><strong>Comprehensive Test Harnesses:</strong> Unit tests, integration fixtures, and property-based tests run before any change is committed.</li>
+      <li><strong>Security Audits:</strong> Static analysis for credential leaks, access boundary escapes, and injection vectors.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="minimalism">
+    <h2>3. Radical Dependency Minimalism</h2>
+    <p>The easiest code to maintain is code that does not exist. The safest dependencies are standard libraries that are maintained by language core teams and battle-tested across decades.</p>
+    <p>Where modern industry defaults to importing hundreds of npm or PyPI packages for trivial tasks, we insist on standard-library solutions first. This keeps systems fast, secure, and immune to upstream supply-chain compromise.</p>
+  </section>
+
+  <section class="section" id="readiness">
+    <h2>4. Machine-Readable Knowledge</h2>
+    <p>We build our own web applications and client systems to be fully machine-readable. Through clean semantic HTML, comprehensive JSON-LD graphs, and standards like <code>llms.txt</code>, systems remain immediately discoverable and actionable by autonomous agents.</p>
+    <p>Review our <a href="stack.html">technical stack</a> or explore our <a href="services.html">services</a>.</p>
+  </section>
+
+<!-- @include foot -->
+</main>
+</div>
+</body>
+</html>
+

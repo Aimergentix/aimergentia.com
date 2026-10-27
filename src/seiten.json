@@ -1,0 +1,49 @@
+{
+  "pages": [
+    {
+      "file": "index.html",
+      "sitemap": true,
+      "lastmod": "2026-10-27"
+    },
+    {
+      "file": "services.html",
+      "sitemap": true,
+      "lastmod": "2026-10-27"
+    },
+    {
+      "file": "approach.html",
+      "sitemap": true,
+      "lastmod": "2026-10-27"
+    },
+    {
+      "file": "stack.html",
+      "sitemap": true,
+      "lastmod": "2026-10-27"
+    },
+    {
+      "file": "contact.html",
+      "sitemap": true,
+      "lastmod": "2026-10-27"
+    },
+    {
+      "file": "privacy.html",
+      "sitemap": false
+    },
+    {
+      "file": "terms.html",
+      "sitemap": false
+    },
+    {
+      "file": "404.html",
+      "sitemap": false
+    }
+  ],
+  "public_files": [
+    "CNAME",
+    "favicon.ico",
+    "favicon.svg",
+    "robots.txt",
+    "llms.txt"
+  ]
+}
+

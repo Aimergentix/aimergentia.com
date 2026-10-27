@@ -1,0 +1,5 @@
+#!/bin/sh
+# Runs validation suite on the working tree without modifying sources or git index.
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+exec tools/check.sh

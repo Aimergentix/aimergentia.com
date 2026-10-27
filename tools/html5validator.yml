@@ -1,0 +1,12 @@
+# Nur genau dokumentierte Meldungen; übrige Fehler und Warnungen bleiben Fehler.
+# Begründung und unabhängige Kontrollen: docs/pflege.md, HTML-Validierung.
+root: dist
+match: ["*.html"]
+errors_only: false
+ignore_re:
+  - >-
+    ^"file:[^"]*/dist/[a-z0-9-]+\.html":\d+\.\d+-\d+\.\d+: info warning: Resource violates Content Security Policy \(meta tag\): external stylesheet "(?:/)?style\.css" blocked by "style-src" directive\.$
+  - >-
+    ^"file:[^"]*/dist/index\.html":\d+\.\d+-\d+\.\d+: info warning: Inline script violates Content Security Policy \(meta tag\): blocked by "script-src" directive \(missing "'unsafe-inline'" or nonce/hash\)\.$
+  - >-
+    ^"file:[^"]*/dist/[a-z0-9-]+\.html":\d+\.\d+-\d+\.\d+: error: Attribute "media" not allowed on element "meta" at this point\.$

@@ -1,0 +1,1455 @@
+/* BB Limen — Stylesheet.
+   Keine externen Ressourcen, keine Webfonts, keine Skripte.
+
+   Aufbau
+   ------
+   Links eine stehende Kolumne in Graphit: Bürokennung, Navigation und
+   Kontakt. Sie bleibt beim Scrollen stehen, damit die Telefonnummer auf
+   jedem Bildschirmzentimeter erreichbar ist. Rechts der Satzspiegel im
+   Stil eines gesetzten Buches: Serifenschrift, Rubriken in Goldocker,
+   Aufgabenbereiche als Register mit römischen Ziffern.
+
+   Proportion
+   ----------
+   Die Abstandsleiter folgt Potenzen des Goldenen Schnitts (phi = 1.618),
+   die Schriftgrade steigen in ähnlich engen Schritten. Beide Leitern sind
+   an einigen Stellen bewusst gebrochen, wo das Auge einen anderen Wert
+   verlangte; sie sind Ausgangspunkt, nicht Gesetz. Die Kolumne verhält
+   sich zum Satzspiegel etwa wie 1 : 1,9.
+
+   Palette C — Graphit, Gold & Stahlblau
+   -------------------------------------
+   Graphit trägt die Amtsautorität, Gold die Wärme des Klassischen.
+   Stahlblau kennzeichnet, was sich anklicken lässt. Nicht anklickbare
+   Nebenangaben bleiben in einem warmen Steingrau davon getrennt.
+   Alle Farbwerte stehen im Block PALETTE; ein Wechsel ersetzt nur ihn.
+   Jede Textpaarung erfüllt WCAG AA, hell und dunkel; tests/test_site.py
+   rechnet es bei jeder Prüfung nach.
+*/
+
+/* ================= PALETTE — austauschbarer Block ================= */
+
+:root {
+  --paper:   #fbfaf7;   /* Grund des Satzspiegels — eine Spur warm */
+  --surface: #f4f2ed;   /* abgesetzte Flächen, Register, Hinweis */
+  --ink:     #14181c;   /* Überschriften */
+  --body:    #414750;   /* Fließtext */
+  --muted:   #656c77;   /* Nebentext, Beschriftungen */
+  --line:    #e6e2da;   /* Haarlinien auf Papier */
+
+  --carrier:   #0a101d; /* Dark-Blue-Black — die stehende Kolumne */
+  --carrier-line: #1e293b;
+  --on-carrier:      #fafafa;
+  --meta-on-carrier: #c5beb3; /* warmes Grau — nicht anklickbare Nebenangaben */
+
+  /* Bedien- und Subkapitelfarbe: frisches Ananas-Rot */
+  --link-ink:        #b82424;
+  --link-on-carrier: #ff6b6b;
+
+  /* Fluoreszierendes Bernstein / Amber: tief auf Papier, leuchtend auf Dark-Blue-Black */
+  --accent:     #9e5a00;
+  --accent-ink: #9e5a00;
+  --accent-on-carrier: #ffb300;
+
+  /* Markenklammern in frischem Ananas-Rot */
+  --brand-leaf: #ff6b6b;
+  --leicht-ink: #8a4b32; /* Terrakotta auf Papier, 6,42:1 */
+
+  /* Salbei — die zweite Stimme. Sie steht ausschließlich dort, wo die
+     Nachricht entlastet: keine Kosten, keine Entmündigung, eigene Wahl
+     des Betreuers, der Weg zurück. Nie als Schmuck. Geprüft: 6,53:1
+     auf Papier, 6,14:1 auf Fläche. */
+  --gut:         #3a6350;
+  --gut-ink:     #3a6350;
+  --gut-flaeche: #edf2ee;
+
+  --hauch: #f8f3e3;     /* Gold sehr dünn — nur bei Berührung */
+
+  /* Stimmen */
+  --st-1: #9e5a00;
+  --st-2: #3a6350;
+  --st-3: #8a4b32;
+  --st-4: #b82424;
+  --st-5: #6f5a18;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --paper:   #111312;
+    --surface: #191a18;
+    --ink:     #eef0f2;
+    --body:    #ced4db; /* heller für ruhigen, kontrastreichen Fließtext */
+    --muted:   #a4acb6; /* Zusatztext bleibt abgestuft, aber besser lesbar */
+    --line:    #282a27;
+
+    --carrier:   #060a12; /* tiefes Dark-Blue-Black */
+    --carrier-line: #151e2e;
+    --on-carrier:      #eef0f2;
+    --meta-on-carrier: #bbb6ae;
+
+    --link-ink:        #ff6b6b;
+    --link-on-carrier: #ff6b6b;
+
+    --accent:     #ffb703;
+    --accent-ink: #ffb703;
+    --accent-on-carrier: #ffb703;
+
+    --brand-leaf: #ff6b6b;
+    --leicht-ink: #d09a7f;
+
+    --gut:         #94c4a6;   /* 9,57:1 auf Papier, 8,91:1 auf Fläche */
+    --gut-ink:     #94c4a6;
+    --gut-flaeche: #171f1a;
+
+    --hauch: #1d1a15;
+
+    --st-1: #ffb703;
+    --st-2: #94c4a6;
+    --st-3: #d09a7f;
+    --st-4: #ff6b6b;
+    --st-5: #cfb964;
+  }
+}
+
+/* Druck: Schwarz auf Weiß, ohne Flächen. Gilt auch, wenn der Bildschirm
+   dunkel eingestellt ist, weil der dunkle Satz nur für screen gilt. */
+@media print {
+  :root {
+    --paper: #fff;
+    --surface: #fff;
+    --ink: #000;
+    --body: #000;
+    --muted: #333;
+    --line: #999;
+    --carrier: #fff;
+    --carrier-line: #333;
+    --on-carrier: #000;
+    --meta-on-carrier: #333;
+    --link-ink: #000;
+    --link-on-carrier: #000;
+    --accent: #000;
+    --accent-ink: #000;
+    --accent-on-carrier: #000;
+    --brand-leaf: #000;
+    --leicht-ink: #000;
+    --gut: #000;
+    --gut-ink: #000;
+    --gut-flaeche: #fff;
+    --hauch: #fff;
+    --st-1: #000;
+    --st-2: #000;
+    --st-3: #000;
+    --st-4: #000;
+    --st-5: #000;
+  }
+}
+
+/* ================= Maße, Schrift ================= */
+
+:root {
+  --s-1: 0.382rem;
+  --s0:  0.618rem;
+  --s1:  1rem;
+  --s2:  1.618rem;
+  --s3:  2.618rem;
+  --s4:  4.236rem;
+
+  --rail: 16.8rem;        /* Breite der Kolumne */
+  --measure: 40rem;
+
+  --serif: "Noto Serif", Georgia, "Liberation Serif", "Times New Roman", serif;
+  --sans:  ui-sans-serif, system-ui, "Noto Sans", "DejaVu Sans", Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--body);
+  font-family: var(--serif);
+  font-size: clamp(1.02rem, 0.99rem + 0.18vw, 1.12rem);
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--link-ink); text-underline-offset: 0.18em; }
+
+/* ================= Gerüst ================= */
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  max-width: 96rem;
+  margin-inline: auto;
+}
+
+/* ================= Die stehende Kolumne ================= */
+
+.rail {
+  background: var(--carrier);
+  color: var(--meta-on-carrier);
+  font-family: var(--sans);
+  padding: var(--s3) var(--s2) var(--s2);
+}
+
+@media (min-width: 60.01rem) {
+  .rail {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    /* Auf sehr breiten Schirmen läuft der Graphit bis an den linken
+       Bildschirmrand, damit die Kolumne die Seite begrenzt, statt als
+       Platte in der Mitte zu schweben. Ohne Einfluss auf das Layout. */
+    box-shadow: -100vw 0 0 var(--carrier);
+  }
+
+  /* "Leichte Sprache" wandert vor die Navigation, "Für Fachkreise"
+     bleibt direkt dahinter — wie vor der Auslagerung in den
+     gemeinsamen Block .rail-links (der hier als Layout-Ebene entfällt). */
+  .rail-links { display: contents; }
+  .rail-ls { order: 0; }
+  .rail nav { order: 1; }
+  .rail-fach { order: 1; margin-top: var(--s2); }
+  .rail-spacer, .rail-contact, .rail-legal { order: 2; }
+}
+
+.rail-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s0);
+  color: var(--on-carrier);
+  text-decoration: none;
+}
+
+.rail-brand .leaf { width: 1.75rem; height: 1.75rem; flex: none; color: var(--accent-on-carrier); }
+/* Die Blattkontur trägt das Mint der Marke. Mittelrippe und Adern bleiben
+   in Gold; Bedienfarbe ist das Mint nicht mehr. */
+.rail-brand .leaf .blatt { stroke: var(--brand-leaf); }
+
+.rail-name {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.rail-role {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--meta-on-carrier);
+  margin: var(--s1) 0 0;
+  line-height: 1.5;
+}
+.rail-role span { display: block; }
+
+.rail-post { display: none; }  /* am Schreibtisch bereits im Kontaktblock */
+
+.rail-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: var(--s2) 0;
+  color: var(--accent-on-carrier);
+  font-size: 0.85rem;
+}
+.rail-ornament::before, .rail-ornament::after {
+  content: ""; flex: 1; height: 1px; background: var(--carrier-line);
+}
+
+.rail nav ul { list-style: none; margin: 0; padding: 0; }
+.rail nav a {
+  display: block;
+  color: var(--link-on-carrier);
+  text-decoration: none;
+  font-size: 1.08rem;
+  padding: 0.55rem 0 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--carrier-line);
+  transition: color 120ms linear, border-color 120ms linear;
+}
+.rail nav a:hover { color: var(--on-carrier); }
+.rail nav li a[aria-current="page"] {
+  color: var(--accent-on-carrier);
+  font-weight: 600;
+  border-left: 2px solid var(--accent-on-carrier);
+  padding-left: calc(0.75rem - 2px);
+}
+
+/* "Leichte Sprache" und "Für Fachkreise" richten sich an ein anderes
+   Publikum als der Rest der Navigation und stehen deshalb als eigener
+   Block unter ihr, nicht als Listeneintrag. Die Aufteilung in
+   "display: contents" (Schreibtisch, oben) und "display: flex" (Telefon,
+   weiter unten) steht bewusst je in der eigenen Media Query: eine
+   unbedingte Basisregel würde bei gleicher Spezifität die spätere Regel
+   im Quelltext gewinnen lassen, unabhängig von der Bildschirmbreite. */
+
+.rail-ls a, .rail-fach a {
+  display: inline-block;
+  font-family: var(--sans);
+  border: 1px solid var(--link-on-carrier);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--link-on-carrier);
+  text-decoration: none;
+  padding: 0.32rem 0.85rem;
+  transition: border-color 120ms linear, color 120ms linear;
+}
+.rail-ls a:hover, .rail-fach a:hover { border-color: var(--on-carrier); color: var(--on-carrier); }
+.rail-ls a[aria-current="page"], .rail-fach a[aria-current="page"] {
+  border-color: var(--accent-on-carrier);
+  border-width: 2px;
+  color: var(--accent-on-carrier);
+  padding: calc(0.32rem - 1px) calc(0.85rem - 1px);
+}
+
+.rail-spacer { flex: 1; min-height: var(--s2); }
+
+.rail-contact {
+  border-top: 2px solid var(--accent-on-carrier);
+  margin-top: var(--s2);
+  padding-top: var(--s1);
+}
+.rail-contact dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--meta-on-carrier);
+  margin-top: var(--s1);
+}
+.rail-contact dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--on-carrier);
+  line-height: 1.45;
+}
+.rail-contact dd.post { font-weight: 400; font-size: 0.95rem; }
+.rail-contact dd .wer {
+  display: block;
+  font-weight: 400;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  color: var(--meta-on-carrier);
+  margin-top: 0.02rem;
+}
+.rail-contact dd a {
+  color: var(--link-on-carrier);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.rail-legal {
+  margin: var(--s2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: var(--s1);
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+}
+.rail-legal a { color: var(--link-on-carrier); text-decoration: underline; text-underline-offset: 0.18em; }
+.rail-legal a:hover { color: var(--on-carrier); }
+
+/* ================= Satzspiegel ================= */
+
+.sheet { padding: var(--s3) clamp(var(--s2), 4vw, var(--s4)) var(--s4); }
+.sheet > * { max-width: var(--measure); }
+
+.kicker {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  font-weight: 600;
+  margin: 0 0 var(--s0);
+}
+
+h1 {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 1.3rem + 2.5vw, 2.95rem);
+  line-height: 1.13;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s1);
+  text-wrap: balance;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 4.236rem;
+  height: 2px;
+  margin-top: var(--s1);
+  background: var(--accent);
+  transform-origin: 0 50%;
+}
+
+.lead {
+  font-size: clamp(1.12rem, 1.05rem + 0.5vw, 1.32rem);
+  line-height: 1.55;
+  color: var(--ink);
+  margin: var(--s2) 0 var(--s2);
+}
+
+/* Initiale im Buchsatz, nur auf der Startseite und nur breit genug */
+@media (min-width: 46rem) {
+  .sheet .lead.initial::first-letter {
+    float: left;
+    font-size: 3.5em;
+    line-height: 0.82;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+h2 {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 1.18rem + 0.7vw, 1.72rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  margin: var(--s3) 0 var(--s0);
+}
+
+.section h2 {
+  color: var(--link-ink);
+}
+
+h3 {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin: var(--s2) 0 var(--s-1);
+}
+
+p { margin: 0 0 var(--s1); }
+p:last-child { margin-bottom: 0; }
+
+/* Zierlinie mit Signet — das Schwellen-Motiv */
+.ornament {
+  border: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: var(--s3) 0;
+  color: var(--accent);
+  max-width: var(--measure);
+}
+.ornament::before, .ornament::after {
+  content: ""; flex: 1; height: 1px; background: var(--line);
+}
+/* Das Zierzeichen ist dasselbe Blatt wie die Marke der Kolumne, nur klein.
+   Früher stand hier das Schriftzeichen U+2766. Es kommt in keiner
+   Serifenschrift des Projekts vor — weder in Noto Serif noch in Georgia
+   oder Times New Roman — und fiel deshalb auf eine Symbol- oder
+   Farb-Emoji-Schrift zurück: auf jedem Gerät ein anderes Bild, oft ein
+   bunter Fleck neben der Goldlinie. Als SVG ist es überall dasselbe
+   und folgt über currentColor der Farbe des Ornaments.
+
+   Das Verhältnis 24:26 des viewBox bestimmt Breite zu Höhe; wer die
+   Breite ändert, rechnet die Höhe mit 1,083 nach. */
+.zierblatt { width: 0.95rem; height: 1.03rem; flex: none; }
+.rail-ornament .zierblatt { width: 0.85rem; height: 0.92rem; }
+
+/* ================= Register der Aufgabenbereiche ================= */
+
+.register {
+  border-top: 1px solid var(--line);
+  margin: var(--s2) 0 0;
+  max-width: var(--measure);
+  list-style: none;   /* die römische Ziffer steht als .idx im Markup */
+  padding: 0;
+}
+
+.register .entry {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 0 var(--s1);
+  padding: var(--s1) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.register .idx {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--accent-ink);
+  padding-top: 0.35em;
+}
+
+.register h3 { margin: 0 0 0.2rem; }
+.register p { margin: 0; color: var(--muted); font-size: 0.98rem; }
+
+/* Aufzählung innerhalb eines Registereintrags */
+.unterliste {
+  list-style: none;
+  margin: var(--s0) 0;
+  padding: 0;
+}
+.unterliste li {
+  position: relative;
+  padding-left: var(--s1);
+  margin-bottom: 0.2rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+.unterliste li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--accent-ink);
+}
+
+/* ================= Stufe 3: Leben nur bei Berührung ================= */
+
+/* Im Ruhezustand unsichtbar — also ohne Wirkung auf den Ersteindruck und
+   auf den Druck. Nur auf Geräten mit echtem Zeigegerät, damit der
+   Zustand am Telefon nicht kleben bleibt. */
+@media (hover: hover) {
+  .register .entry,
+  .dokumente li,
+  .sprungmenu li {
+    transition: background-color 160ms ease-out;
+  }
+  .register .entry:hover,
+  .dokumente li:hover,
+  .sprungmenu li:hover {
+    background: var(--hauch);
+  }
+}
+
+/* ================= Hinweis, Kontaktliste ================= */
+
+.note {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  padding: var(--s1) var(--s2);
+  margin: var(--s3) 0 0;
+  max-width: var(--measure);
+  font-family: var(--sans);
+  font-size: 0.94rem;
+  color: var(--muted);
+}
+.note p { margin: 0; }
+.note strong { color: var(--ink); }
+
+/* Faktenliste für Gerichte, Kliniken und Behörden: Begriff links,
+   Antwort rechts, damit sich die gesuchte Zeile im Überfliegen findet. */
+.fakten {
+  margin: var(--s2) 0 var(--s2);
+  max-width: var(--measure);
+  border-top: 1px solid var(--line);
+}
+.fakten dt {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  font-weight: 600;
+  padding-top: var(--s1);
+}
+.fakten dd {
+  margin: 0.25rem 0 0;
+  padding-bottom: var(--s1);
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 52rem) {
+  .fakten {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    column-gap: var(--s2);
+  }
+  .fakten dd { margin-top: 0; padding-top: var(--s1); }
+}
+
+/* Geschwister von .note — gleiche Bauform, andere Aussage. .note warnt
+   oder schränkt ein, .gut entlastet. Mehr als eine Handvoll pro Website
+   wäre zu viel; dann verliert die Farbe ihre Bedeutung. */
+.gut {
+  background: var(--gut-flaeche);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gut);
+  padding: var(--s1) var(--s2);
+  margin: var(--s2) 0;
+  max-width: var(--measure);
+  font-family: var(--sans);
+  font-size: 0.96rem;
+  color: var(--body);
+}
+.gut p { margin: 0; }
+.gut p + p { margin-top: var(--s0); }
+.gut strong { color: var(--gut-ink); }
+
+dl.contact {
+  margin: var(--s2) 0 0;
+  padding: var(--s1) var(--s2);
+  background: var(--surface);
+  border-top: 2px solid var(--accent);
+  border-bottom: 1px solid var(--line);
+  max-width: var(--measure);
+}
+dl.contact dt {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+dl.contact dd { margin: 0 0 var(--s1); color: var(--ink); }
+dl.contact dd:last-child { margin-bottom: 0; }
+
+/* Impressum und Datenschutz stehen nur noch hier und in der Kolumne.
+   § 5 DDG verlangt "leicht erkennbar, unmittelbar erreichbar, ständig
+   verfügbar" — der Fuß steht auf jeder Seite, die Verweise heißen
+   wörtlich Impressum und Datenschutz und brauchen kein JavaScript.
+   Deshalb bleiben sie hier auch im Kontrast des Fließtextes, nicht
+   schwächer. */
+.sheet-foot {
+  margin-top: var(--s4);
+  padding-top: var(--s1);
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: var(--measure);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem var(--s2);
+  justify-content: space-between;
+}
+.sheet-foot .foot-recht a {
+  color: var(--link-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+.sheet-foot .foot-recht a:hover { color: var(--ink); }
+
+/* ================= Sprungmenü der Fachseite ================= */
+
+/* Die Fachseite ist lang und wird nicht gelesen, sondern angesteuert.
+   Das Menü ist deshalb kein Inhaltsverzeichnis in Kleinschrift, sondern
+   ein Register mit Ziffern: dieselbe Bauform wie die Aufgabenbereiche,
+   damit die Seite eine Formensprache behält. */
+.sprungmenu {
+  margin: var(--s3) 0;
+  max-width: var(--measure);
+  background: var(--surface);
+  border-top: 2px solid var(--accent);
+  border-bottom: 1px solid var(--line);
+  padding: var(--s1) var(--s2) var(--s1);
+}
+
+.sprung-marke {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-ink);
+  margin: 0 0 var(--s0);
+}
+
+.sprungmenu ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;                       /* die Haarlinien entstehen aus dem Grund */
+  background: var(--line);
+}
+.sprungmenu li { background: var(--surface); }
+
+.sprungmenu a {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0 var(--s0);
+  padding: 0.62rem 0;
+  text-decoration: none;
+  color: var(--ink);
+}
+.sprungmenu a:hover .was { color: var(--ink); }
+
+.sprungmenu .nr {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--accent-ink);
+}
+.sprungmenu .was {
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--link-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+.sprungmenu .dazu {
+  grid-column: 2;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+@media (min-width: 46rem) {
+  /* Breit genug: Titel und Stichworte nebeneinander statt untereinander */
+  .sprungmenu a { grid-template-columns: 2rem minmax(0, 15rem) minmax(0, 1fr); }
+  .sprungmenu .dazu { grid-column: 3; grid-row: 1; margin-top: 0; }
+}
+
+/* Angesteuerte Überschrift nicht unter den oberen Rand rutschen lassen */
+.sheet [id] { scroll-margin-top: var(--s2); }
+
+/* ================= Exkurs: der Name ================= */
+
+/* Ein abgesetzter Einschub im Satzspiegel — anderer Grund, Goldrahmen
+   oben und unten, damit er als Einschub gelesen wird und nicht als
+   Fortsetzung des Haupttextes. Die beiden Wörter stehen nebeneinander
+   wie in einem Wörterbuch. */
+.exkurs {
+  margin: var(--s3) 0;
+  max-width: var(--measure);
+  background: var(--surface);
+  border-top: 2px solid var(--accent);
+  border-bottom: 1px solid var(--line);
+  padding: var(--s2) var(--s2) var(--s2);
+}
+
+.exkurs h2 {
+  margin: 0 0 var(--s1);
+  font-size: clamp(1.2rem, 1.1rem + 0.5vw, 1.45rem);
+}
+.exkurs p { font-size: 1rem; }
+.exkurs p:last-child { margin-bottom: 0; }
+
+.woerter {
+  display: grid;
+  gap: var(--s2);
+  margin: var(--s2) 0;
+  padding: var(--s1) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 40rem) {
+  /* Subgrid, damit Schrift, Umschrift, Grammatik und Bedeutung in beiden
+     Spalten auf derselben Zeile sitzen. Ohne das rutscht die Bedeutung
+     rechts eine Zeile tiefer, sobald "Genitiv λιμένος" umbricht. */
+  .woerter {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, auto);
+    gap: 0 var(--s3);
+  }
+  .woerter .wort {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    align-content: start;
+  }
+  .woerter .wort + .wort {
+    border-left: 1px solid var(--line);
+    padding-left: var(--s3);
+    margin-left: calc(var(--s3) * -0.5);
+  }
+}
+
+/* Die Schriftarten des Satzspiegels decken Griechisch mit ab; für den
+   Fall, dass die erste nicht verfügbar ist, folgen breiter ausgestattete
+   Systemschriften. Weiterhin keine Webfonts. */
+.wort .schrift {
+  font-family: "Noto Serif", "DejaVu Serif", "Liberation Serif", Georgia, serif;
+  font-size: clamp(1.7rem, 1.4rem + 1.4vw, 2.3rem);
+  line-height: 1.15;
+  color: var(--accent-ink);
+  margin: 0;
+}
+.wort .umschrift {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 0.15rem 0 0;
+}
+.wort .gramm {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: var(--s0) 0 0;
+}
+.wort .bedeutung {
+  color: var(--ink);
+  margin: var(--s0) 0 0;
+  font-size: 1.05rem;
+}
+
+/* ================= Gesetzeszitat ================= */
+
+.zitat {
+  margin: var(--s2) 0;
+  max-width: var(--measure);
+  padding-left: var(--s2);
+  border-left: 3px solid var(--accent);
+}
+.zitat p {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0 0 var(--s0);
+}
+.zitat cite {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-style: normal;
+}
+
+/* ================= Betreuende auf der Seite Büro ================= */
+
+/* Jede Person eine eigene Karte: Sie arbeitet selbständig, und das soll man
+   sehen. Die Karten tragen dieselbe Bauform wie Kontakt und Exkurs —
+   Fläche, Goldlinie oben — und nur Farben, die es schon gibt. Das Raster
+   darf breiter sein als der Satzspiegel, damit zwei Karten nebeneinander
+   Platz haben; schmal steht eine unter der anderen. */
+.sheet > .team { max-width: 56rem; }
+.team {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+  gap: var(--s2);
+  margin: var(--s2) 0 0;
+}
+.person-kopf { align-self: start; }
+
+/* Subgrid: Bild, Kopf, Stand, Blatt, Vorstellung und Fuß liegen in jeder
+   Karte einer Zeile auf derselben Höhe, auch wenn eine Berufsbezeichnung
+   umbricht. Ohne Subgrid stehen die Teile einfach untereinander. */
+.person {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 6;
+  row-gap: 0;
+  align-content: start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--accent);
+  padding: var(--s2);
+}
+
+.person h3 {
+  margin: 0;
+  font-size: clamp(1.18rem, 1.1rem + 0.4vw, 1.38rem);
+  line-height: 1.25;
+}
+.person .rolle {
+  margin: 0.2rem 0 0;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Das Porträt steht rund im Goldrahmen und füllt die Kartenbreite.
+   Ein Foto wird rund zugeschnitten, Gesichter sitzen im oberen Drittel.
+   Solange keines vorliegt, steht dort ein gezeichneter Platzhalter: eine
+   Gestalt unter einem Türbogen über der Schwelle — das Motiv des Namens. */
+.portrait {
+  margin: 0 0 var(--s2);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: var(--paper);
+}
+.portrait img,
+.portrait svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.portrait img { object-fit: cover; object-position: 50% 30%; }
+.platzhalter .grund { fill: var(--paper); }
+.platzhalter .bogen { fill: none; stroke: var(--line); stroke-width: 2; }
+.platzhalter .figur { fill: var(--muted); fill-opacity: 0.18; }
+.platzhalter .schwelle { stroke: var(--accent); stroke-width: 3; }
+
+/* Kleine runde Porträts mit Unterschrift, auf Leichter Sprache und
+   Fachkreise. Die Karten mit Vorstellung stehen in index.html. Die Leichte
+   Sprache bekommt größere, dunklere Unterschriften. */
+.portraits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: var(--s2) 0;
+}
+.portraits figure { margin: 0; width: min(9.5rem, calc(50% - var(--s2) / 2)); }
+.portraits img,
+.portraits svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+.portraits figcaption {
+  margin-top: var(--s-1);
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-align: center;
+}
+.portraits .rolle { display: block; }
+.ls .portraits img,
+.ls .portraits svg { border-color: var(--leicht-ink); }
+.ls .portraits figcaption { font-size: 1.05rem; color: var(--ink); }
+
+/* Kasten um die Porträts auf fachkreise.html, gestaltet wie das
+   Sprungmenü „Auf dieser Seite“; die Überschrift wie dessen Marke. */
+.betreuende-kasten {
+  margin: var(--s3) 0 0;
+  background: var(--surface);
+  border-top: 2px solid var(--accent);
+  border-bottom: 1px solid var(--line);
+  padding: var(--s1) var(--s2);
+}
+.betreuende-kasten h2 {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  line-height: 1.45;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-ink);
+  margin: 0 0 var(--s1);
+}
+.betreuende-kasten .portraits { margin: 0; }
+
+.person .stand {
+  margin: var(--s1) 0 0;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.person .stand span {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+.person .ornament { margin: var(--s1) 0; max-width: none; }
+
+.vorstellung { margin-bottom: var(--s1); }
+.vorstellung p { font-size: 0.98rem; }
+
+/* Fuß unten angeschlagen, damit Karten gleicher Zeile gleich enden. */
+.person-fuss {
+  align-self: end;
+  padding-top: var(--s1);
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.person-fuss p { margin: 0 0 var(--s-1); }
+.person-fuss p:last-child { margin-bottom: 0; }
+.person-fuss .karte {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.symbol { width: 1.3rem; height: 1.3rem; flex: none; }
+
+/* ================= Dokumente und Verweise nach außen ================= */
+
+/* Jeder Verweis nennt Herausgeber und Stand. Das ist hier keine Zierde:
+   ein Vordruck für eine Vorsorgevollmacht veraltet mit dem Gesetz, und
+   der Leser muss auf einen Blick sehen können, wie alt er ist. */
+.dokumente {
+  list-style: none;
+  margin: var(--s2) 0;
+  padding: 0;
+  max-width: var(--measure);
+  border-top: 1px solid var(--line);
+}
+.dokumente li {
+  padding: var(--s1) 0;
+  border-bottom: 1px solid var(--line);
+}
+.dokumente .titel {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--link-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.dokumente .titel::after { content: " \2197"; font-size: 0.85em; }
+.dokumente .titel:hover { color: var(--ink); }
+.dokumente .quelle {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+.dokumente .quelle b { color: var(--body); font-weight: 600; }
+.dokumente p {
+  margin: 0.4rem 0 0;
+  font-size: 0.97rem;
+  color: var(--muted);
+}
+
+.hinweis-extern {
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  color: var(--muted);
+  max-width: var(--measure);
+  margin-top: var(--s2);
+}
+
+/* ================= Hilfe in einer Krise ================= */
+
+/* Der Notruf steht vor allem anderen und hebt sich von jedem Hinweis der
+   Website ab: voller Goldrahmen statt Randstrich. Eine eigene Alarmfarbe
+   gibt es nicht; Rahmen und große Nummern genügen. Die übrigen Abschnitte
+   der Hilfeseite (.kasten) tragen denselben Rahmen, damit jede Anlaufstelle
+   als geschlossener Block gelesen wird. */
+.notruf, .kasten {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  padding: var(--s1) var(--s2) var(--s2);
+  margin: var(--s2) 0 var(--s3);
+  max-width: var(--measure);
+}
+.notruf h2, .kasten h2 { margin-top: var(--s0); }
+.notruf ul { margin: 0 0 var(--s1); padding-left: 1.2em; }
+.notruf li { margin-bottom: 0.3rem; }
+
+/* Im Rahmen schließt der Rahmen die Liste ab, nicht die letzte Haarlinie. */
+.kasten .angebote { margin-bottom: 0; }
+.kasten .angebote li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+/* Rufnummern groß und in der Bedienfarbe: Antippen wählt. Eine Nummer
+   bricht nie um. */
+a.nummer {
+  font-family: var(--sans);
+  font-size: 1.3em;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration-thickness: 2px;
+}
+
+.angebote {
+  list-style: none;
+  margin: var(--s1) 0 var(--s2);
+  padding: 0;
+  max-width: var(--measure);
+  border-top: 1px solid var(--line);
+}
+.angebote li { padding: var(--s1) 0; border-bottom: 1px solid var(--line); }
+.angebote h3 { margin: 0 0 0.3rem; }
+.angebote p { margin: 0.2rem 0 0; }
+
+/* ================= Leichte Sprache ================= */
+
+/* Eigene Typografie nach den Regeln für Leichte Sprache: Groteskschrift
+   statt Serife, großer Schriftgrad, kurze Zeilen, linksbündig, keine
+   Silbentrennung, ein Satz je Zeile (im Markup mit <br>), große Abstände
+   zwischen den Absätzen. Die Kolumne bleibt unverändert, damit die Seite
+   erkennbar zum selben Büro gehört. */
+
+.ls .sheet { font-family: var(--sans); }
+.ls .sheet > * { max-width: 34rem; }
+
+.ls .sheet p,
+.ls .sheet li,
+.ls .sheet dd {
+  font-size: 1.24rem;
+  line-height: 1.8;
+  text-align: left;
+  hyphens: none;
+  -webkit-hyphens: none;
+  text-wrap: pretty;
+}
+
+.ls .sheet p { margin: 0 0 var(--s2); }
+
+.ls h1 {
+  font-family: var(--sans);
+  font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.4rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+}
+.ls h1::after { background: var(--leicht-ink); }
+.ls .kicker { color: var(--leicht-ink); }
+
+.ls h2 {
+  font-family: var(--sans);
+  font-size: 1.42rem;
+  line-height: 1.32;
+  letter-spacing: 0;
+  margin: var(--s4) 0 var(--s1);
+  color: var(--leicht-ink);
+  border-left: 0.28rem solid var(--st-3);
+  padding-left: var(--s1);
+}
+
+/* Die Streifen bilden von oben nach unten einen ruhigen Farbrhythmus.
+   Die Überschriften bleiben auch ohne Farbe durch ihre Form erkennbar. */
+.ls h2:nth-of-type(5n + 1) { border-left-color: var(--st-3); }
+.ls h2:nth-of-type(5n + 2) { border-left-color: var(--st-4); }
+.ls h2:nth-of-type(5n + 3) { border-left-color: var(--st-2); }
+.ls h2:nth-of-type(5n + 4) { border-left-color: var(--st-5); }
+.ls h2:nth-of-type(5n)     { border-left-color: var(--st-1); }
+
+.ls .sheet p.lead {
+  font-size: 1.36rem;
+  line-height: 1.7;
+  margin: var(--s2) 0 var(--s3);
+}
+
+.ls-liste {
+  list-style: none;
+  margin: 0 0 var(--s2);
+  padding: 0;
+  max-width: 34rem;
+}
+.ls-liste li {
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  padding: var(--s1) var(--s2);
+  margin-bottom: var(--s1);
+}
+.ls-liste strong { color: var(--ink); }
+
+/* Jeder Aufgabenbereich bekommt eine eigene Farbe. Auf dieser Seite ist
+   das kein Schmuck: wer schwer liest, findet die Stelle am Farbstreifen
+   wieder, ohne noch einmal lesen zu müssen. */
+.ls-liste li:nth-child(1) { border-left-color: var(--st-1); }
+.ls-liste li:nth-child(2) { border-left-color: var(--st-2); }
+.ls-liste li:nth-child(3) { border-left-color: var(--st-3); }
+.ls-liste li:nth-child(4) { border-left-color: var(--st-4); }
+.ls-liste li:nth-child(5) { border-left-color: var(--st-5); }
+
+.ls-liste li:nth-child(1) strong { color: var(--st-1); }
+.ls-liste li:nth-child(2) strong { color: var(--st-2); }
+.ls-liste li:nth-child(3) strong { color: var(--st-3); }
+.ls-liste li:nth-child(4) strong { color: var(--st-4); }
+.ls-liste li:nth-child(5) strong { color: var(--st-5); }
+
+/* Hervorgehobener Merksatz — in Leichter Sprache gehört das Wichtige
+   sichtbar abgesetzt, nicht nur fett. */
+.ls-wichtig {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  padding: var(--s1) var(--s2);
+  margin: var(--s2) 0 var(--s3);
+  max-width: 34rem;
+}
+.ls-wichtig p { margin: 0; }
+.ls-wichtig strong { color: var(--accent-ink); }
+
+.ls-links {
+  list-style: none;
+  margin: 0 0 var(--s2);
+  padding: 0;
+  max-width: 34rem;
+}
+.ls-links li {
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  padding: var(--s1) var(--s2);
+  margin-bottom: var(--s1);
+}
+.ls-links > li > a {
+  font-family: var(--sans);
+  font-size: 1.24rem;
+  font-weight: 600;
+  color: var(--link-ink);
+  text-underline-offset: 0.2em;
+}
+.ls-links .wer {
+  display: block;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+.ls-links p { margin: var(--s0) 0 0; }
+
+/* Hilfe in einer Krise: der einzige Kasten mit vollem Terrakotta-Rahmen,
+   damit er sich von Merksatz und Listen abhebt. Die Nummern stehen groß
+   für sich, darunter ein Satz je Zeile. */
+.ls-notruf {
+  background: var(--surface);
+  border: 3px solid var(--leicht-ink);
+  padding: var(--s1) var(--s2) var(--s2);
+  margin: var(--s2) 0 var(--s3);
+  max-width: 34rem;
+}
+.ls .ls-notruf h2 { margin-top: var(--s0); border-left: 0; padding-left: 0; }
+.ls-nummern { list-style: none; margin: 0 0 var(--s2); padding: 0; }
+.ls-nummern li { border-top: 1px solid var(--line); padding: var(--s1) 0; }
+.ls-nummern li:last-child { border-bottom: 1px solid var(--line); }
+.ls-nummern a {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration-thickness: 2px;
+}
+
+.ls-weiter a {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.7rem var(--s2);
+  border-radius: 6px;
+}
+
+.ls dl.contact dt { font-size: 0.85rem; }
+.ls dl.contact dd { font-size: 1.24rem; }
+
+/* ================= Anrufleiste am Telefon ================= */
+
+.callbar { display: none; }
+
+@media screen and (max-width: 60rem) {
+  /* Beim Anspringen eines Links bleibt Platz über der festen Anrufleiste. */
+  html { scroll-padding-bottom: calc(9rem + env(safe-area-inset-bottom, 0px)); }
+  .shell { grid-template-columns: minmax(0, 1fr); }
+
+  /* Am Telefon wird aus der stehenden Kolumne ein schmales Kopfband:
+     Signet, Name, Rolle, Blatttrenner und darunter die Navigation.
+     Kontaktblock und Rechtszeile entfallen — der Kontakt steht in der
+     Anrufleiste, die Rechtstexte im Seitenfuß. Damit
+     beginnt die Überschrift im ersten Bildschirmdrittel statt erst
+     nach der halben Seite. */
+  .rail { padding: var(--s1) var(--s2) 0; }
+  .rail-brand { gap: 0.55rem; }
+  .rail-brand .leaf { width: 1.45rem; height: 1.45rem; }
+  .rail-name { font-size: 1.12rem; line-height: 1.3; }
+
+  .rail-role {
+    margin: 0.35rem 0 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+  .rail-role span { display: inline; }
+  .rail-role span + span::before { content: " · "; }
+
+  .rail-post {
+    display: block;
+    margin: 0.35rem 0 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    color: var(--meta-on-carrier);
+  }
+
+  /* Der Trenner bleibt an derselben semantischen Stelle wie am Schreibtisch:
+     zwischen Bürokennung und den beiden besonderen Zugängen. */
+  .rail-ornament { margin: 0.7rem 0; }
+  .rail-spacer { display: none; }
+  .rail-contact { display: none; }   /* steht unten in der Anrufleiste */
+  .rail-legal { display: none; }     /* steht im Seitenfuß */
+
+  .rail nav { margin-top: 0; }
+  .rail nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .rail nav li { display: flex; align-items: baseline; }
+  /* Der Trenner hängt hinten am Eintrag, nicht vorn. Vorn angesetzt
+     beginnt eine umgebrochene Zeile (bei 320 px) mit einem verwaisten
+     Punkt. */
+  .rail nav li::after {
+    content: "·";
+    color: var(--carrier-line);
+    padding: 0 0.62rem;
+  }
+  .rail nav li:last-child::after { content: none; }
+  .rail nav a {
+    border-bottom: 0;
+    border-left: 0;
+    padding: 0.62rem 0;     /* ~45 px Antippfläche */
+    font-size: 0.92rem;
+  }
+  .rail nav li a[aria-current="page"] {
+    border-left: 0;
+    border-bottom: 2px solid var(--accent-on-carrier);
+    padding-left: 0;
+  }
+
+  /* "Leichte Sprache" und "Für Fachkreise" liegen am Telefon nebeneinander
+     unter dem Hauptfeld, statt wie am Schreibtisch davor bzw. dahinter. */
+  .rail-links { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.3rem 0 0.75rem; }
+  .rail-ls a, .rail-fach a { padding: 0.32rem 0.85rem; font-size: 0.8rem; }
+
+  .sheet {
+    min-width: 0;
+    /* Silbentrennung, mit Umbruch als Rückfall ohne Browser-Wörterbuch. */
+    hyphens: auto;
+    overflow-wrap: anywhere;
+    padding: var(--s2) var(--s2) calc(9rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .callbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 20;
+    background: var(--carrier);
+    border-top: 1px solid var(--carrier-line);
+    padding: 0.6rem var(--s1);
+    padding-bottom: calc(0.6rem + env(safe-area-inset-bottom, 0px));
+    gap: 0.4rem;
+    font-family: var(--sans);
+  }
+  .callbar-buttons { display: flex; gap: 0.6rem; }
+  .callbar-hours {
+    margin: 0;
+    text-align: center;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: var(--meta-on-carrier);
+  }
+  .callbar a {
+    flex: 1;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.7rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background-color 100ms linear, border-color 100ms linear,
+                color 100ms linear, transform 80ms ease-out;
+  }
+  .callbar .tel { background: var(--accent-on-carrier); color: var(--carrier); }
+  .callbar .mail { background: var(--link-on-carrier); color: var(--carrier); }
+  .callbar .tel:hover { background: var(--on-carrier); }
+  .callbar .mail:hover { background: var(--on-carrier); }
+  .callbar a:active { transform: translateY(1px); }
+}
+
+/* Ab etwa 2000 px wächst die Seite proportional mit, damit sie auf
+   4K-Schirmen nicht verloren wirkt. Zeilenlänge bleibt unverändert,
+   weil Satzbreite und Schriftgrad beide in rem stehen. Prozent statt
+   Pixel: Wer im Browser eine größere Grundschrift eingestellt hat,
+   behält sie; bei 16 px ergibt das wie bisher 17,5 px. */
+@media (min-width: 125rem) {
+  html { font-size: 109.375%; }
+}
+
+/* ================= Bedienbarkeit, Bewegung, Druck ================= */
+
+/* Sprunglink: erst beim Tabben sichtbar, dann deutlich. */
+.skip {
+  position: absolute;
+  left: var(--s1);
+  top: -4rem;
+  z-index: 40;
+  background: var(--accent);
+  /* var(--paper) statt Weiss: im Hellen heller Grund auf Goldocker
+     (4,9:1), im Dunkeln dunkler Grund auf hellem Gold (9,4:1).
+     Festes #fff fällt im Dunkelmodus auf 2,5:1 und wäre zu schwach. */
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  text-decoration: none;
+  padding: 0.65rem var(--s1);
+  border-radius: 0 0 4px 4px;
+  transition: top 120ms ease-out;
+}
+.skip:focus { top: 0; }
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Auf dem Graphit der Kolumne liegt das dunklere Goldocker mit 3,03:1 nur
+   knapp über der Mindestlinie für Nicht-Text. Dort ruht der Ring deshalb
+   mit deutlicher Reserve auf der hellen Schriftfarbe. */
+.rail a:focus-visible, .callbar a:focus-visible { outline-color: var(--on-carrier); }
+
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: 240ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes zieh-linie { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+h1::after { animation: zieh-linie 560ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  h1::after { animation: none; transform: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+@media print {
+  .shell { display: block; }
+  .rail { background: none; color: var(--ink); padding: 0 0 1rem; border-bottom: 1pt solid var(--ink);
+          box-shadow: none; position: static; height: auto; overflow: visible; }
+  .rail nav, .rail-legal, .rail-ornament, .rail-links, .rail-spacer, .callbar { display: none; }
+  /* Kontaktblock bleibt: ein Ausdruck ohne Telefon und Anschrift ist
+     für die Leser, die ausdrucken, wertlos. */
+  .rail-contact { display: block; }
+  .rail-name, .rail-contact dd, .rail-contact dd a { color: var(--ink); }
+  .rail-role, .rail-contact dt { color: var(--meta-on-carrier); }
+  .sheet { padding: 1rem 0; }
+  body { background: var(--paper); color: var(--body); font-size: 11pt; }
+  h1::after { animation: none; transform: none; background: var(--ink); }
+  a { color: var(--ink); }
+  .note, .gut, dl.contact { background: none; }
+  .sheet a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+}

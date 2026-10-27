@@ -1,0 +1,16 @@
+# Erzeugte Website und temporäre Builddateien. Veröffentlicht wird nur dist/.
+/dist/
+.build.*/
+*.neu
+__pycache__/
+
+# Gemeinsame technische Dokumentation wird versioniert.
+# Persönliche Unterlagen und Auditberichte bleiben lokal.
+/docs/lokal/
+/reports/
+/tmp/
+
+# Lokale Einstellungen der KI-Werkzeuge.
+.agents/
+.codex/
+.claude/settings.local.json
